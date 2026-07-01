@@ -9,9 +9,20 @@ export interface Props {
   lang: Lang;
   t: Record<string, any>;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, lang, t, description } = Astro.props;
+const { title, lang, t, description, ogImage } = Astro.props;
+const path = Astro.url.pathname;
+const canonical = `https://kemiai.dev${path}`;
+const altPath = path.replace(/^\/(en|fr)/, '');
+const altCode = lang === 'en' ? 'fr' : 'en';
+const altUrl = `https://kemiai.dev/${altCode}${altPath}`;
+const defaultUrl = `https://kemiai.dev/en${altPath}`;
+const siteName = 'KEMI AI';
+const fullTitle = `${title} — ${siteName}`;
+const fullDesc = description ?? 'KEMI AI — Digital transformation agency. Digitization, numerical transformation, and AI adoption for the modern enterprise.';
+const og = ogImage ?? '/favicon.svg';
 ---
 
 <!DOCTYPE html>
@@ -19,12 +30,50 @@ const { title, lang, t, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={fullDesc} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} — KEMI AI</title>
-    <meta name="description" content={description ?? "KEMI AI — Digital transformation agency. AI, data, and digitization for the modern enterprise."} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={defaultUrl} />
+    <link rel="alternate" hreflang="fr" href={altUrl} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={fullDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'fr_FR'} />
+    <meta property="og:image" content={`https://kemiai.dev${og}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={fullDesc} />
+    <meta name="twitter:image" content={`https://kemiai.dev${og}`} />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "KEMI AI",
+        "url": "https://kemiai.dev",
+        "description": "Digital transformation agency specializing in digitization, numerical transformation, and AI transitioning.",
+        "foundingDate": "2025",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "contact@kemiai.dev",
+          "contactType": "sales"
+        },
+        "sameAs": []
+      }
+    </script>
+
+    <title>{fullTitle}</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
     <script>
       (function() {
         var saved = localStorage.getItem('kemiai-theme');

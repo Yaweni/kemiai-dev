@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://kemiai.dev',
@@ -9,4 +10,15 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          fr: 'fr',
+        },
+      },
+    }),
+  ],
 });
