@@ -1,0 +1,14 @@
+{
+  "name": "kemiai-dev",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "KEMI AI — Digital transformation agency. Digitization, numerical transformation, AI transitioning.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

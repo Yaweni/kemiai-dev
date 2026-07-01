@@ -1,0 +1,90 @@
+---
+const pages = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'Who We Are' },
+  { href: '/services', label: 'What We Do' },
+  { href: '/contact', label: 'Talk to Us' },
+];
+---
+
+<header class="header">
+  <nav class="container nav">
+    <a href="/" class="logo">
+      <span class="logo-ornament">&#10086;</span>
+      KEMI<span class="logo-accent">AI</span>
+    </a>
+    <ul class="nav-links">
+      {pages.map((p) => (
+        <li><a href={p.href} class="nav-link">{p.label}</a></li>
+      ))}
+    </ul>
+    <a href="/contact" class="btn btn-primary nav-cta">Start a Project</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26, 13, 0, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 160, 23, 0.12);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-cream);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .logo-ornament {
+    color: var(--color-gold);
+    font-size: 1rem;
+  }
+
+  .logo-accent {
+    color: var(--color-gold);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+  }
+
+  .nav-link {
+    color: var(--color-brown-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-gold);
+  }
+
+  .nav-cta {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta {
+      display: none;
+    }
+  }
+</style>

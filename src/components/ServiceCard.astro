@@ -1,0 +1,71 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { title, description, icon } = Astro.props;
+---
+
+<div class="card">
+  <span class="card-icon">{icon}</span>
+  <h3 class="card-title">{title}</h3>
+  <div class="floral-divider">
+    <span>&#10086;</span>
+  </div>
+  <p class="card-desc">{description}</p>
+</div>
+
+<style>
+  .card {
+    background: var(--color-warm-white);
+    border: 1px solid rgba(212, 160, 23, 0.15);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-amber), var(--color-terracotta));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(212, 160, 23, 0.12);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-icon {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+</style>
