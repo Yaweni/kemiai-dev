@@ -1,14 +1,29 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+import { loadTranslations } from '../../i18n';
+import type { Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fr' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = loadTranslations(lang);
+const c = t.contact;
+const nav = t.nav;
 ---
 
-<Layout title="Talk to Us">
+<Layout title={c.heroBadge} lang={lang} t={t}>
   <section class="page-hero">
+    <div class="dotted-pattern"></div>
     <div class="container">
       <div class="hero-ornament">&#10086; &#10086; &#10086;</div>
-      <span class="hero-badge">Talk to Us</span>
-      <h1 class="page-title">Let's build something <span class="gold-text">golden</span> together</h1>
-      <p class="page-subtitle">Tell us what you're working on. We'll respond within 48 hours with a thoughtful perspective — not a canned pitch.</p>
+      <span class="hero-badge">{c.heroBadge}</span>
+      <h1 class="page-title">{c.heroTitle} <span class="gold-text">{c.heroHighlight}</span>{c.heroTitleEnd ? ` ${c.heroTitleEnd}` : ''}</h1>
+      <p class="page-subtitle">{c.heroSub}</p>
     </div>
   </section>
 
@@ -17,51 +32,52 @@ import Layout from '../layouts/Layout.astro';
       <div class="contact-grid">
         <div class="contact-info">
           <div class="floral-divider"><span>&#10086;</span></div>
-          <h2 class="section-title" style="margin-bottom: 32px;">Reach us</h2>
+          <h2 class="section-title" style="margin-bottom: 32px;">{c.sectionTitle}</h2>
           <div class="info-block">
             <div class="info-icon">&#9993;</div>
             <div>
-              <h4>Email</h4>
-              <a href="mailto:hello@kemiai.dev">hello@kemiai.dev</a>
+              <h4>{c.emailLabel}</h4>
+              <a href="mailto:contact@kemiai.dev">{c.emailValue}</a>
             </div>
           </div>
           <div class="info-block">
             <div class="info-icon">&#9200;</div>
             <div>
-              <h4>Response Time</h4>
-              <p>We reply to every inquiry within 48 hours — usually faster.</p>
+              <h4>{c.responseLabel}</h4>
+              <p>{c.responseValue}</p>
             </div>
           </div>
           <div class="info-block">
             <div class="info-icon">&#127758;</div>
             <div>
-              <h4>Location</h4>
-              <p>Remote-first, globally distributed. We work with clients anywhere in the world.</p>
+              <h4>{c.locationLabel}</h4>
+              <p>{c.locationValue}</p>
             </div>
           </div>
         </div>
 
-        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <form class="contact-form" action="https://formspree.io/f/mlgypazw" method="POST">
           <div class="form-row">
             <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required placeholder="Your name" />
+              <label for="name">{c.nameLabel}</label>
+              <input type="text" id="name" name="name" required placeholder={c.namePlaceholder} />
             </div>
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required placeholder="you@company.com" />
+              <label for="email">{c.emailLabel2}</label>
+              <input type="email" id="email" name="email" required placeholder={c.emailPlaceholder} />
             </div>
           </div>
           <div class="form-group">
-            <label for="company">Company (optional)</label>
-            <input type="text" id="company" name="company" placeholder="Your company" />
+            <label for="company">{c.companyLabel}</label>
+            <input type="text" id="company" name="company" placeholder={c.companyPlaceholder} />
           </div>
           <div class="form-group">
-            <label for="message">Tell us about your project</label>
-            <textarea id="message" name="message" rows="6" required placeholder="What are you looking to build, transform, or improve? The more detail, the better our first response."></textarea>
+            <label for="message">{c.messageLabel}</label>
+            <textarea id="message" name="message" rows="6" required placeholder={c.messagePlaceholder}></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem;">Send Message</button>
-          <p class="form-note">We respect your inbox. No spam, ever.</p>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem;">{c.submitBtn}</button>
+          <p class="form-note">{c.privacyNote}</p>
+          <p class="form-note" style="margin-top: 8px;">&mdash; or &mdash;<br /><a href="mailto:contact@kemiai.dev" class="direct-email">contact@kemiai.dev</a></p>
         </form>
       </div>
     </div>
@@ -71,7 +87,7 @@ import Layout from '../layouts/Layout.astro';
 <style>
   .page-hero {
     position: relative;
-    background: var(--color-dark);
+    background: var(--bg-dark);
     padding: 100px 0 72px;
     text-align: center;
     overflow: hidden;
@@ -87,7 +103,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .hero-ornament {
-    color: var(--color-gold);
+    color: var(--gold);
     font-size: 1rem;
     letter-spacing: 8px;
     margin-bottom: 20px;
@@ -98,7 +114,7 @@ import Layout from '../layouts/Layout.astro';
   .hero-badge {
     display: inline-block;
     background: rgba(212, 160, 23, 0.1);
-    color: var(--color-gold-light);
+    color: var(--gold-light);
     padding: 6px 20px;
     border-radius: 100px;
     font-size: 0.85rem;
@@ -112,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
   .page-title {
     font-size: 3rem;
     font-weight: 800;
-    color: var(--color-cream);
+    color: #F0EDE8;
     margin-bottom: 16px;
     letter-spacing: -1px;
     position: relative;
@@ -122,7 +138,7 @@ import Layout from '../layouts/Layout.astro';
   .gold-text {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    background: linear-gradient(135deg, var(--color-gold-light), var(--color-amber), var(--color-gold));
+    background: linear-gradient(135deg, var(--gold-light), var(--amber), var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -131,7 +147,7 @@ import Layout from '../layouts/Layout.astro';
 
   .page-subtitle {
     font-size: 1.1rem;
-    color: var(--color-brown-light);
+    color: var(--text-muted);
     max-width: 640px;
     margin: 0 auto;
     line-height: 1.7;
@@ -155,7 +171,7 @@ import Layout from '../layouts/Layout.astro';
 
   .info-icon {
     font-size: 1.5rem;
-    color: var(--color-gold);
+    color: var(--gold);
     flex-shrink: 0;
     width: 36px;
     text-align: center;
@@ -166,17 +182,17 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--color-muted);
+    color: var(--text-muted);
     margin-bottom: 6px;
   }
 
   .info-block p, .info-block a {
     font-size: 1rem;
-    color: var(--color-dark);
+    color: var(--bg-dark);
   }
 
   .contact-form {
-    background: var(--color-warm-white);
+    background: var(--bg-surface);
     border: 1px solid rgba(212, 160, 23, 0.15);
     border-radius: var(--radius);
     padding: 44px;
@@ -197,7 +213,7 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 8px;
-    color: var(--color-dark);
+    color: var(--bg-dark);
   }
 
   .form-group input,
@@ -209,28 +225,38 @@ import Layout from '../layouts/Layout.astro';
     font-family: var(--font-sans);
     font-size: 0.95rem;
     transition: all 0.2s;
-    background: var(--color-cream);
-    color: var(--color-dark);
+    background: #F0EDE8;
+    color: var(--bg-dark);
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-gold);
+    border-color: var(--gold);
     box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.1);
-    background: var(--color-warm-white);
+    background: var(--bg-surface);
   }
 
   .form-group input::placeholder,
   .form-group textarea::placeholder {
-    color: var(--color-muted);
+    color: var(--text-muted);
   }
 
   .form-note {
     text-align: center;
     font-size: 0.85rem;
-    color: var(--color-muted);
+    color: var(--text-muted);
     margin-top: 18px;
+  }
+
+  .direct-email {
+    color: var(--gold-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .direct-email:hover {
+    color: var(--gold);
   }
 
   @media (max-width: 768px) {

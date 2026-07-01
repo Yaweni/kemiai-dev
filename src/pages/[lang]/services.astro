@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { loadTranslations } from '../../i18n';
+import type { Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fr' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = loadTranslations(lang);
+const s = t.services;
+const nav = t.nav;
+---
+
+<Layout title={s.heroBadge} lang={lang} t={t}>
+  <section class="page-hero">
+    <div class="dotted-pattern"></div>
+    <div class="container">
+      <div class="hero-ornament">&#10086; &#10086; &#10086;</div>
+      <span class="hero-badge">{s.heroBadge}</span>
+      <h1 class="page-title">{s.heroTitle} <span class="gold-text">{s.heroHighlight}</span>{s.heroTitleEnd ? ` ${s.heroTitleEnd}` : ''}</h1>
+      <p class="page-subtitle">{s.heroSub}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="service-detail">
+        <div class="service-tag">01</div>
+        <h2 class="service-name">{s.service1Title}</h2>
+        <p class="service-desc">{s.service1Desc}</p>
+        <div class="service-list">
+          {s.service1Items.map((item: string) => (
+            <div class="service-item">{item}</div>
+          ))}
+        </div>
+      </div>
+
+      <div class="service-detail">
+        <div class="service-tag">02</div>
+        <h2 class="service-name">{s.service2Title}</h2>
+        <p class="service-desc">{s.service2Desc}</p>
+        <div class="service-list">
+          {s.service2Items.map((item: string) => (
+            <div class="service-item">{item}</div>
+          ))}
+        </div>
+      </div>
+
+      <div class="service-detail">
+        <div class="service-tag">03</div>
+        <h2 class="service-name">{s.service3Title}</h2>
+        <p class="service-desc">{s.service3Desc}</p>
+        <div class="service-list">
+          {s.service3Items.map((item: string) => (
+            <div class="service-item">{item}</div>
+          ))}
+        </div>
+      </div>
+
+      <div class="service-detail featured">
+        <div class="service-tag">+</div>
+        <h2 class="service-name">{s.service4Title}</h2>
+        <p class="service-desc">{s.service4Desc}</p>
+        <div class="service-list">
+          {s.service4Items.map((item: string) => (
+            <div class="service-item">{item}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-gold">
+    <div class="container" style="text-align: center;">
+      <div class="floral-divider" style="--gold: var(--bg-dark);"><span>&#10086;</span></div>
+      <h2 class="section-title">{s.ctaTitle}</h2>
+      <p class="section-subtitle" style="color: var(--text-secondary); margin-left: auto; margin-right: auto;">
+        {s.ctaSub}
+      </p>
+      <a href={`/${lang}/contact`} class="btn btn-primary" style="background: var(--bg-dark); color: var(--gold);">{s.ctaBtn}</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    position: relative;
+    background: var(--bg-dark);
+    padding: 100px 0 72px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(212, 160, 23, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-ornament {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212, 160, 23, 0.1);
+    color: var(--gold-light);
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border: 1px solid rgba(212, 160, 23, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #F0EDE8;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .gold-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold-light), var(--amber), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-detail {
+    padding: 48px;
+    border: 1px solid rgba(212, 160, 23, 0.15);
+    border-radius: var(--radius);
+    background: var(--bg-surface);
+    margin-bottom: 40px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-detail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .service-detail:hover {
+    border-color: var(--gold);
+    box-shadow: 0 12px 40px rgba(212, 160, 23, 0.08);
+  }
+
+  .service-detail:hover::before {
+    opacity: 1;
+  }
+
+  .service-detail.featured {
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, var(--bg-surface), rgba(212, 160, 23, 0.03));
+  }
+
+  .service-detail.featured::before {
+    opacity: 1;
+  }
+
+  .service-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--bg-dark);
+    margin-bottom: 16px;
+  }
+
+  .service-detail.featured .service-tag {
+    background: var(--gold);
+    color: var(--bg-dark);
+  }
+
+  .service-name {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--bg-dark);
+  }
+
+  .service-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-bottom: 28px;
+  }
+
+  .service-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .service-item {
+    padding: 12px 18px;
+    background: var(--bg-alt);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border: 1px solid rgba(212, 160, 23, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .service-list {
+      grid-template-columns: 1fr;
+    }
+
+    .service-detail {
+      padding: 32px 24px;
+    }
+
+    .service-name {
+      font-size: 1.35rem;
+    }
+  }
+</style>

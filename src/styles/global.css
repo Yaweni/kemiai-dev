@@ -6,33 +6,50 @@
   box-sizing: border-box;
 }
 
-:root {
-  --color-gold: #D4A017;
-  --color-gold-dark: #A67C00;
-  --color-gold-light: #F5D576;
-  --color-amber: #E8A817;
-  --color-terracotta: #C47E5E;
-  --color-cream: #FFFDF5;
-  --color-cream-dark: #F5F0E3;
-  --color-warm-white: #FFFAF0;
-  --color-dark: #1A0D00;
-  --color-dark-2: #2D1800;
-  --color-brown: #4A3520;
-  --color-brown-light: #7A5C3E;
-  --color-muted: #8B7355;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --max-width: 1200px;
-  --radius: 12px;
+:root,
+[data-theme='light'] {
+  --bg: #FFFFFF;
+  --bg-alt: #F8F7F5;
+  --bg-surface: #FFFFFF;
+  --bg-dark: #181512;
+  --bg-dark-alt: #221E1A;
+  --text: #1A1A2E;
+  --text-secondary: #5C5C6E;
+  --text-muted: #8A8A9E;
+  --border: #E8E6E4;
+  --border-light: #F2F0EE;
+  --gold: #D4A017;
+  --gold-dark: #B8860B;
+  --gold-light: #F5D576;
+  --amber: #E8A817;
+}
+
+[data-theme='dark'] {
+  --bg: #12100E;
+  --bg-alt: #1C1A18;
+  --bg-surface: #1E1C1A;
+  --bg-dark: #0A0907;
+  --bg-dark-alt: #13110E;
+  --text: #F0EDE8;
+  --text-secondary: #A8A298;
+  --text-muted: #7A746E;
+  --border: #2E2C2A;
+  --border-light: #262422;
+  --gold: #E8A817;
+  --gold-dark: #D4A017;
+  --gold-light: #F5D576;
+  --amber: #E8A817;
 }
 
 html {
   scroll-behavior: smooth;
+  transition: background 0.3s, color 0.3s;
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--color-cream);
-  color: var(--color-dark);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
@@ -44,18 +61,18 @@ img {
 }
 
 a {
-  color: var(--color-gold-dark);
+  color: var(--gold-dark);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 a:hover {
-  color: var(--color-gold);
+  color: var(--gold);
 }
 
 .container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -64,18 +81,18 @@ a:hover {
   padding: 96px 0;
 }
 
+.section-alt {
+  background: var(--bg-alt);
+}
+
 .section-dark {
-  background: var(--color-dark);
-  color: white;
+  background: var(--bg-dark);
+  color: #F0EDE8;
 }
 
 .section-gold {
-  background: linear-gradient(135deg, var(--color-amber), var(--color-gold));
-  color: var(--color-dark);
-}
-
-.section-cream {
-  background: var(--color-cream-dark);
+  background: linear-gradient(135deg, var(--amber), var(--gold));
+  color: var(--text);
 }
 
 .section-title {
@@ -87,17 +104,17 @@ a:hover {
 
 .section-subtitle {
   font-size: 1.125rem;
-  color: var(--color-muted);
+  color: var(--text-secondary);
   max-width: 640px;
   margin-bottom: 48px;
 }
 
 .section-dark .section-title {
-  color: white;
+  color: #F0EDE8;
 }
 
 .section-dark .section-subtitle {
-  color: var(--color-brown-light);
+  color: #A8A298;
 }
 
 .btn {
@@ -105,7 +122,7 @@ a:hover {
   align-items: center;
   gap: 8px;
   padding: 14px 32px;
-  border-radius: var(--radius);
+  border-radius: 12px;
   font-weight: 600;
   font-size: 1rem;
   border: none;
@@ -115,38 +132,38 @@ a:hover {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-amber), var(--color-gold));
-  color: var(--color-dark);
+  background: linear-gradient(135deg, var(--amber), var(--gold));
+  color: #1A1A2E;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(212, 160, 23, 0.35);
-  color: var(--color-dark);
+  color: #1A1A2E;
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--color-gold);
-  border: 2px solid var(--color-gold);
+  color: var(--gold);
+  border: 2px solid var(--gold);
 }
 
 .btn-outline:hover {
-  background: var(--color-gold);
-  color: var(--color-dark);
+  background: var(--gold);
+  color: #1A1A2E;
   transform: translateY(-2px);
 }
 
 .btn-outline-light {
   background: transparent;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: #F0EDE8;
+  border: 2px solid rgba(240, 237, 232, 0.35);
 }
 
 .btn-outline-light:hover {
-  background: white;
-  color: var(--color-dark);
+  background: #F0EDE8;
+  color: #1A1A2E;
   transform: translateY(-2px);
 }
 
@@ -169,7 +186,7 @@ a:hover {
   justify-content: center;
   gap: 12px;
   margin: 12px auto;
-  color: var(--color-gold);
+  color: var(--gold);
 }
 
 .floral-divider::before,
@@ -177,12 +194,26 @@ a:hover {
   content: '';
   width: 40px;
   height: 2px;
-  background: var(--color-gold);
+  background: var(--gold);
   border-radius: 1px;
 }
 
 .floral-divider span {
   font-size: 1.2rem;
+}
+
+.dotted-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  opacity: 0.06;
+}
+
+.dotted-pattern-light {
+  opacity: 0.04;
+  color: var(--gold);
 }
 
 @media (max-width: 768px) {
