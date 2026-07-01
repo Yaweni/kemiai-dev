@@ -19,6 +19,7 @@ export default defineConfig({
           fr: 'fr',
         },
       },
+      filter: (page) => page !== 'https://kemiai.dev/',
     }),
   ],
 });
